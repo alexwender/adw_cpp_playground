@@ -18,6 +18,19 @@ public:
     {
         std::cout << "DataObject Constructor\n";
     }
+
+    bool addDataByValue(const T data);
+
+    bool addDataByReference(const T& data);
+
+    bool addDataByRRef(T&& data);
+
+    void print();
+
+protected:
+
+    DataContainer::container_type m_data_container;
+
 };
 
 
