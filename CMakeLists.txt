@@ -13,6 +13,7 @@ message(STATUS "playground SRC:\n${playground_SRC}")
 
 set(playground_HDR src/dataobject.h)
 list(APPEND playground_HDR src/datacontainer.cpp)
+list(APPEND playground_HDR src/enumrange.hpp)
 
 add_library(playground ${playground_HDR} ${playground_SRC})
 
@@ -21,5 +22,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(test_dataobject test/test_dataobject)
 target_link_libraries(test_dataobject playground)
+
+add_executable(test_enumrange test/test_enumrange)
 
 
