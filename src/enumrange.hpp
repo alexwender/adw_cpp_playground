@@ -20,6 +20,7 @@ const std::map<TestEnum, std::string> TEST_ENUM_TO_STRING = {
     {TestEnum::VAL2, "Val2"}
 };
 
+
 template<typename Enumeration>
 auto as_value(Enumeration const value) -> typename std::underlying_type<Enumeration>::type {
     return static_cast<typename std::underlying_type<Enumeration>::type>(value);
@@ -74,5 +75,8 @@ public:
 
 
 };
+
+
+constexpr auto ALL_TEST_ENUMS = EnumRange<TestEnum, TestEnum::FIRST, TestEnum::LAST, 1>();
 
 #endif // ENUMRANGE_H
