@@ -25,4 +25,4 @@ target_link_libraries(test_dataobject playground)
 
 add_executable(test_enumrange test/test_enumrange)
 
-
+add_executable(test_template_bool test/test_template_bool)
