@@ -47,7 +47,47 @@ TEST(TestFunWithFunctors, SimpleTest) {
   process_list.processPoint(POINT(0.0, 0.0, 0.0));
 
 
+  std::unique_ptr<TemplatedSortLayeredList<decltype(layered_points)>> templated_sort_list(
+      new TemplatedSortLayeredList<decltype(layered_points)>(layered_points));
+
+  ProcessLayeredList<decltype(templated_sort_list)> process_list_2(std::move(templated_sort_list));
+
+  std::cout << "process_list_2\n";
+
+  process_list_2.processPoint(POINT(0.0, 0.0, 1.0));
+
+  std::unique_ptr<TemplatedSortLayeredList<decltype(layered_points)>> templated_sort_list_single(
+      new TemplatedSortLayeredList<decltype(layered_points)>(layered_points));
+
+  const auto point = POINT(0.0, 10.0, 0.0);
+
+  auto sort_result = (*templated_sort_list_single)(point);
+
+  EdgeTemplatedSortFilter<
+      decltype(layered_points),
+      TemplatedSortLayeredList<decltype(layered_points)>::output_container
+      > edge_filter(layered_points);
+//
+  auto edge_ref = edge_filter(point, sort_result);
+//
+  std::cout << "reference: " << edge_ref << "\n";
+
+
+  SurfTemplatedSortFiler<
+      decltype(layered_points),
+      TemplatedSortLayeredList<decltype(layered_points)>::output_container
+      > surf_filter(layered_points);
+
+  auto surf_ref = surf_filter(point, sort_result);
+
+  std::cout << "surf references: " << surf_ref << "\n";
+
+
+
   ASSERT_EQ(true, true);
+
+
+
 
 }
 } /* namespace playground */
