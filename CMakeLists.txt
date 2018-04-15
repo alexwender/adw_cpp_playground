@@ -28,7 +28,7 @@ add_library(playground ${playground_HDR} ${playground_SRC})
 # include the top level cmake directory
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(test_dataobject test/test_dataobject)
+add_executable(test_dataobject test/test_dataobject src/datacontainer.cpp src/datacontainer.h)
 target_link_libraries(test_dataobject playground)
 
 add_executable(test_enumrange test/test_enumrange)
@@ -37,3 +37,6 @@ add_executable(test_template_bool test/test_template_bool)
 
 add_executable(test_fun_with_functors test/test_fun_with_functors.cpp)
 target_link_libraries(test_fun_with_functors gtest gtest_main)
+
+add_executable(test_how_to_enable_if test/test_how_to_enable_if.cpp src/HowToEnableIf.hpp)
+target_link_libraries(test_how_to_enable_if gtest gtest_main)
