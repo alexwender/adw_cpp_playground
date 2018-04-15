@@ -35,7 +35,15 @@ struct hasDoNothing<T, decltype(std::declval<T>().doNothing())> : std::true_type
 
 };
 
+template <typename T, typename = int>
+struct hasNothing : std::false_type{
 
+};
+
+template <typename T>
+struct hasNothing<T, decltype(std::declval<T>().nothing)> : std::true_type {
+
+};
 
 
 template<class>
@@ -109,7 +117,9 @@ class HowToEnableIf {
   };
 
   template<typename U=T>
-      auto doNothing() ->Apply<std::enable_if<!hasDoNothing<U>::value, int>> {
+      auto doNothing() ->Apply<std::enable_if<
+          !hasDoNothing<U>::value && hasNothing<U>::value
+          , int>> {
 
     return 1;
   }
@@ -171,6 +181,12 @@ class HasDoNothing {
   void doNothing() {
     std::cout << "doNothing from DoNothing" << "\n";
   }
+};
+
+class HasNotDoNothingButMember {
+ public:
+
+  int nothing=4;
 };
 
 #endif //ADW_CPP_PLAYGROUND_HOWTOENABLEIF_HPP

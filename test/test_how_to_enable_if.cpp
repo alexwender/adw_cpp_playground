@@ -35,9 +35,11 @@ TEST(HowToEnableIfTest, SimpleTest) {
 //  HasDoNothing test;
 
   static_assert(hasDoNothing<HasDoNothing>::value, "has not do nothing");
+  static_assert(hasNothing<HasNotDoNothingButMember>::value, "has not do nothing but also not member");
+  static_assert(!hasNothing<HasDoNothing>::value, "awea");
 
   HowToEnableIf<HasDoNothing> has_do_nothing;
-  HowToEnableIf<HasMember> has_not_do_nothing;
+  HowToEnableIf<HasNotDoNothingButMember> has_not_do_nothing;
 
   auto res_nothing = has_do_nothing.doNothing();
   auto res_no_nothing = has_not_do_nothing.doNothing();
