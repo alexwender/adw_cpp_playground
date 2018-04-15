@@ -25,6 +25,17 @@ struct has_requested_member_method_no_argument
 };
 
 
+template <typename T, typename = void>
+struct hasDoNothing : std::false_type{
+
+};
+
+template <typename T>
+struct hasDoNothing<T, decltype(std::declval<T>().doNothing())> : std::true_type {
+
+};
+
+
 
 
 template<class>
@@ -41,6 +52,9 @@ static auto test_process_value(...) -> std::false_type;
 template<class T, class Arg>
 struct has_process_value : decltype(detail::test_process_value<T, Arg>(0)){};
 
+
+template<typename T>
+using Apply = typename T::type;
 
 template<typename T>
 class HowToEnableIf {
@@ -84,6 +98,29 @@ class HowToEnableIf {
     return T::substitute_process_value(value);
 
   };
+
+  template<typename U=T>
+  auto doNothing() -> Apply<std::enable_if<hasDoNothing<U>::value, int>> {
+
+      local_obj.doNothing();
+
+      return 2;
+
+  };
+
+  template<typename U=T>
+      auto doNothing() ->Apply<std::enable_if<!hasDoNothing<U>::value, int>> {
+
+    return 1;
+  }
+
+
+
+ private:
+
+  T local_obj;
+
+
 //
 //  template<
 //      typename U=T,
@@ -126,6 +163,14 @@ class HasNotMember {
     return value + 2;
   }
 
+};
+
+class HasDoNothing {
+ public:
+
+  void doNothing() {
+    std::cout << "doNothing from DoNothing" << "\n";
+  }
 };
 
 #endif //ADW_CPP_PLAYGROUND_HOWTOENABLEIF_HPP

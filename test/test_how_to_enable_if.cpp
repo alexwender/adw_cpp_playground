@@ -32,6 +32,19 @@ TEST(HowToEnableIfTest, SimpleTest) {
   static_assert(has_process_value<HasMember, int>::value, "Has not process value");
   static_assert(!has_process_value<HasNotMember, int>::value, "Has process value");
 
+//  HasDoNothing test;
+
+  static_assert(hasDoNothing<HasDoNothing>::value, "has not do nothing");
+
+  HowToEnableIf<HasDoNothing> has_do_nothing;
+  HowToEnableIf<HasMember> has_not_do_nothing;
+
+  auto res_nothing = has_do_nothing.doNothing();
+  auto res_no_nothing = has_not_do_nothing.doNothing();
+
+  std::cout << "res_nothing   : " << res_nothing << "\n";
+  std::cout << "res_no_nothing: " << res_no_nothing << "\n";
+
 
 }
 
