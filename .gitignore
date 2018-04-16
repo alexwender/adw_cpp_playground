@@ -1,2 +1,4 @@
 test_build
 CMakeLists.txt.user
+.idea/
+cmake-build-debug
