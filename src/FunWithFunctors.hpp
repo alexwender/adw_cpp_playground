@@ -30,6 +30,7 @@ class Functor {
 
     std::cout << "passed value is  : " << value << "\n";
     std::cout << "previous value is: " << prev_value << "\n";
+    return true;
 
   }
 
@@ -315,7 +316,10 @@ class SurfTemplatedSortFiler : public AbstractTemplatedSortFilter<
       INPUT,
       CorrespondenceResult<3, LayeredPointReference>>;
 
-  using base_type::AbstractTemplatedSortFilter;
+  using AbstractTemplatedSortFilter<
+      SORT_LAYERED_LIST_POINTER,
+      INPUT,
+      CorrespondenceResult<3, LayeredPointReference>>::AbstractTemplatedSortFilter;
 
   using output_type = typename base_type::output_type;
   using point_type = typename base_type::point_type;
