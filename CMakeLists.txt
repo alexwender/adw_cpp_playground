@@ -4,6 +4,8 @@ project(adw_cpp_playground)
 
 set (CMAKE_CXX_STANDARD 11)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
 # adding playground library
 
 set (gtest_SOURCE_DIR "$ENV{HOME}/googletest/googletest" CACHE FILEPATH "Google Test source directory")
