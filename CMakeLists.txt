@@ -28,7 +28,10 @@ add_library(playground ${playground_HDR} ${playground_SRC})
 # include the top level cmake directory
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(test_dataobject test/test_dataobject src/datacontainer.cpp src/datacontainer.h)
+add_executable(test_dataobject
+        test/test_dataobject
+        src/datacontainer.cpp
+        src/datacontainer.h)
 target_link_libraries(test_dataobject playground)
 
 add_executable(test_enumrange test/test_enumrange)
