@@ -20,11 +20,11 @@ public:
         std::cout << "DataObject Constructor\n";
     }
 
-    bool addDataByValue(const T data);
+    void addDataByValue(const T data);
 
-    bool addDataByReference(const T& data);
+    void addDataByReference(const T& data);
 
-    bool addDataByRRef(T&& data);
+    void addDataByRRef(T&& data);
 
     void print();
 
@@ -35,24 +35,21 @@ protected:
 };
 
 template<typename T>
-bool DataContainer<T>::addDataByValue(const DataContainer::value_type data)
+void DataContainer<T>::addDataByValue(const DataContainer::value_type data)
 {
 
     this->m_data_container.emplace_back(data);
-
-    return true;
-
 }
 
 template<typename T>
-bool DataContainer<T>::addDataByReference(const DataContainer::value_type &data)
+void DataContainer<T>::addDataByReference(const DataContainer::value_type &data)
 {
     this->m_data_container.emplace_back(data);
 
 }
 
 template<typename T>
-bool DataContainer<T>::addDataByRRef(DataContainer::value_type &&data)
+void DataContainer<T>::addDataByRRef(DataContainer::value_type &&data)
 {
     this->m_data_container.emplace_back(std::move(data));
 

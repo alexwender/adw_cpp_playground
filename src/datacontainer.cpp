@@ -1,8 +1,8 @@
 #include <iostream>
 #include <iomanip>
 
-#include "src/dataobject.h"
-#include "src/datacontainer.h"
+#include "data/dataobject.h"
+#include "data/datacontainer.h"
 
 using namespace std;
 

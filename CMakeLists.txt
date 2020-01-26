@@ -1,47 +1,43 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.10.2)
 
 project(adw_cpp_playground)
 
 set (CMAKE_CXX_STANDARD 11)
-
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-# adding playground library
-
-set (gtest_SOURCE_DIR "$ENV{HOME}/googletest/googletest" CACHE FILEPATH "Google Test source directory")
-
-message(STATUS "gtest_SOURCE_DIR: ${gtest_SOURCE_DIR}")
-
+# Find and set binary dir for GTest
+# the gtest source dir is taken from ubuntu standard install path
+set (gtest_SOURCE_DIR "/usr/src/googletest/googletest" CACHE FILEPATH "Google Test source directory")
 add_subdirectory(${gtest_SOURCE_DIR} ${CMAKE_BINARY_DIR}/gtest)
 
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+enable_testing()
 
-set(playground_SRC src/dataobject.cpp)
-list(APPEND playground_SRC src/datacontainer.h)
+include(GoogleTest)
 
-message(STATUS "playground SRC:\n${playground_SRC}")
+add_executable(
+        test_dataobject
+        test/test_dataobject.cpp
+        src/dataobject.cpp)
 
-set(playground_HDR src/dataobject.h src/FunWithFunctors.hpp)
-list(APPEND playground_HDR src/datacontainer.cpp)
-list(APPEND playground_HDR src/enumrange.hpp)
+target_include_directories(
+        test_dataobject
+        PUBLIC
+        "include"
+)
 
-add_library(playground ${playground_HDR} ${playground_SRC})
+target_link_libraries(
+        test_dataobject
+        gtest_main
+)
 
-# include the top level cmake directory
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+gtest_discover_tests(test_dataobject)
 
-add_executable(test_dataobject
-        test/test_dataobject
-        src/datacontainer.cpp
-        src/datacontainer.h)
-target_link_libraries(test_dataobject playground)
+# add_executable(test_enumrange test/test_enumrange)
 
-add_executable(test_enumrange test/test_enumrange)
+# add_executable(test_template_bool test/test_template_bool)
 
-add_executable(test_template_bool test/test_template_bool)
+# add_executable(test_fun_with_functors test/test_fun_with_functors.cpp)
+# target_link_libraries(test_fun_with_functors gtest gtest_main)
 
-add_executable(test_fun_with_functors test/test_fun_with_functors.cpp)
-target_link_libraries(test_fun_with_functors gtest gtest_main)
-
-add_executable(test_how_to_enable_if test/test_how_to_enable_if.cpp src/HowToEnableIf.hpp)
-target_link_libraries(test_how_to_enable_if gtest gtest_main)
+# add_executable(test_how_to_enable_if test/test_how_to_enable_if.cpp src/HowToEnableIf.hpp)
+# target_link_libraries(test_how_to_enable_if gtest gtest_main)

@@ -1,4 +1,11 @@
 test_build
 CMakeLists.txt.user
-.idea/
-cmake-build-debug
+
+
+cmake-build-*
+
+.vscode
+
+build
+
+.idea
